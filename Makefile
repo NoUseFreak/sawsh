@@ -4,6 +4,7 @@ default:
 	go build -o build/sawsh sawsh.go
 
 install:
+	go build -v -o build/sawsh sawsh.go
 	chmod +x build/sawsh
 	sudo mv build/sawsh /usr/local/bin/sawsh
 
