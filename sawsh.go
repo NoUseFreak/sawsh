@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -11,6 +12,7 @@ import (
 	"net"
 	"os"
 	"os/exec"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -21,6 +23,9 @@ func main() {
 	var ip string
 	if net.ParseIP(arg) != nil {
 		ip = arg
+
+	} else if hostIp, err := parseHostname(arg); err == nil {
+		ip = hostIp
 	} else {
 		ip = queryEC2(arg)
 	}
@@ -32,6 +37,18 @@ func main() {
 	cmd.Stdin = os.Stdin
 	cmd.Stderr = os.Stderr
 	cmd.Run()
+}
+
+func parseHostname(hostname string) (string, error) {
+	var err error
+	r, _ := regexp.Compile("ip-([0-9]{1,3})-([0-9]{1,3})-([0-9]{1,3})-([0-9]{1,3})")
+	m := r.FindAllStringSubmatch(hostname, 4)
+
+	if len(m) != 1 {
+		return "", errors.New("")
+	}
+
+	return fmt.Sprintf("%s.%s.%s.%s", m[0][1], m[0][2], m[0][3], m[0][4]), err
 }
 
 func queryEC2(filter string) string {
