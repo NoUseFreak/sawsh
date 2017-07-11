@@ -53,6 +53,11 @@ $ cd sawsh
 $ make
 $ make install
 ```
+
+### Upgrade
+
+To upgrade to the latest repeat the install step.
+
 ## Configure
 
 Setup sure your [aws-cli](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) is setup. That user needs `ec2:Describe*` permissions.
