@@ -40,6 +40,11 @@ Connecting to 10.1.2.10 ...
 
 Download the latest [release](https://github.com/NoUseFreak/sawsh/releases).
 
+```
+wget https://github.com/NoUseFreak/sawsh/releases/download/0.1.0/darwin_amd64.tar.gz  -O - | tar -xz
+sudo mv ./sawsh /usr/local/bin/sawsh
+```
+
 ### Build from source
 
 ```
