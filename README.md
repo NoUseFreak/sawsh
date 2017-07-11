@@ -30,6 +30,12 @@ Connecting to 10.1.2.10 ...
 
 ## Install
 
+### Official release
+
+Download the latest [release](https://github.com/NoUseFreak/sawsh/releases).
+
+### Build from source
+
 ```
 git clone https://github.com/NoUseFreak/sawsh.git
 cd sawsh
