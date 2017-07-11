@@ -8,11 +8,15 @@ SSH wrapper for aws to make your life easier.
 sawsh webserver
 ```
 
+This example will query AWS for a EC2 instance containing the name `webserver`. It will prompt you with a choise when
+more than one result is found.
+
 ## Install
 
 ```
 git clone https://github.com/NoUseFreak/sawsh.git
 cd sawsh
+make
 make install
 ```
 ## Configure
