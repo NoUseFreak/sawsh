@@ -2,6 +2,12 @@
 
 SSH wrapper for aws to make your life easier.
 
+## Features
+
+ - Lookup AWS EC2 instances by name.
+ - Lookup ip by `ip-xxx.xxx.xxx.xxx` format.
+ - Transparant connect to ip
+
 ## Usage
 
 ```
