@@ -10,14 +10,14 @@ SSH wrapper for aws to make your life easier.
 
 ## Usage
 
-```
+```sh
 sawsh webserver
 ```
 
 This example will query AWS for a EC2 instance containing the name `webserver`. It will prompt you with a choise when
 more than one result is found.
 
-```
+```sh
 $ sawsh webserver
 listing instances with tag core in: us-east-1
 +---+--------------------+-------------+
@@ -40,14 +40,14 @@ Connecting to 10.1.2.10 ...
 
 Download the latest [release](https://github.com/NoUseFreak/sawsh/releases).
 
-```
+```sh
 wget https://github.com/NoUseFreak/sawsh/releases/download/0.1.0/darwin_amd64.tar.gz  -O - | tar -xz
 sudo mv ./sawsh /usr/local/bin/sawsh
 ```
 
 ### Build from source
 
-```
+```sh
 git clone https://github.com/NoUseFreak/sawsh.git
 cd sawsh
 make
@@ -61,6 +61,6 @@ Setup sure your [aws-cli](http://docs.aws.amazon.com/cli/latest/userguide/cli-ch
 
 It may be useful to setup some aliases if you use multiple aws accounts or want it to run with a non standard profile. 
 
-```
+```sh
 alias prod_ssh='AWS_PROFILE=prod sawsh'
 ```
