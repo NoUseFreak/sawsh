@@ -21,10 +21,7 @@ func main() {
 	arg := os.Args[1]
 
 	var ip string
-	if net.ParseIP(arg) != nil {
-		ip = arg
-
-	} else if hostIp, err := parseHostname(arg); err == nil {
+	if hostIp, err := parseInput(arg); err == nil {
 		ip = hostIp
 	} else {
 		ip = queryEC2(arg)
@@ -39,7 +36,10 @@ func main() {
 	cmd.Run()
 }
 
-func parseHostname(hostname string) (string, error) {
+func parseInput(hostname string) (string, error) {
+	if net.ParseIP(hostname) != nil {
+		return hostname, nil
+	}
 	var err error
 	r, _ := regexp.Compile("ip-([0-9]{1,3})-([0-9]{1,3})-([0-9]{1,3})-([0-9]{1,3})")
 	m := r.FindAllStringSubmatch(hostname, 4)
