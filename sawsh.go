@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"errors"
+	"flag"
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -17,14 +18,23 @@ import (
 	"strings"
 )
 
+var config Config
+
 func main() {
-	arg := os.Args[1]
+
+	config.transparant = *flag.Bool("transparant", true, "Forward lookup failures")
+	flag.Parse()
+	if flag.NArg() < 1 {
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
+	config.hostname = flag.Args()[0]
 
 	var ip string
-	if hostIp, err := parseInput(arg); err == nil {
+	if hostIp, err := parseInput(config.hostname); err == nil {
 		ip = hostIp
 	} else {
-		ip = queryEC2(arg)
+		ip = queryEC2(config.hostname)
 	}
 
 	fmt.Println("Connecting to", ip, "...\n")
@@ -58,6 +68,9 @@ func queryEC2(filter string) string {
 	if len(instances) == 1 {
 		return instances[0].ip
 	} else if len(instances) == 0 {
+		if config.transparant {
+			return filter
+		}
 		fmt.Println("Could not match any instances")
 		os.Exit(1)
 	}
@@ -132,4 +145,14 @@ func findTag(key string, tags []*ec2.Tag) string {
 type Instance struct {
 	name string
 	ip   string
+}
+
+type Target struct {
+	ip   string
+	user string
+}
+
+type Config struct {
+	transparant bool
+	hostname    string
 }
