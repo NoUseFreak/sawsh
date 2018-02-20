@@ -14,6 +14,7 @@ import (
 	"os"
 	"os/exec"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -128,6 +129,15 @@ func findInstances(filter string, awsRegion string) []Instance {
 		i := instance.Instances[0]
 		instances = append(instances, Instance{name: findTag("Name", i.Tags), ip: *i.PrivateIpAddress})
 	}
+
+	// Sort by name
+	sort.Slice(instances, func(i, j int) bool {
+		if instances[i].name == instances[j].name {
+			return instances[i].ip < instances[j].ip
+		}
+		return instances[i].name < instances[j].name
+	})
+
 	return instances
 }
 
