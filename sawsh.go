@@ -130,7 +130,7 @@ func findInstances(filter string, awsRegion string) []Instance {
 		instances = append(instances, Instance{name: findTag("Name", i.Tags), ip: *i.PrivateIpAddress})
 	}
 
-	// Sort by name
+	// Sort by name, ip
 	sort.Slice(instances, func(i, j int) bool {
 		if instances[i].name == instances[j].name {
 			return instances[i].ip < instances[j].ip
