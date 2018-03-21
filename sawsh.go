@@ -125,9 +125,10 @@ func findInstances(filter string, awsRegion string) []Instance {
 	}
 
 	var instances []Instance
-	for _, instance := range resp.Reservations {
-		i := instance.Instances[0]
-		instances = append(instances, Instance{name: findTag("Name", i.Tags), ip: *i.PrivateIpAddress})
+	for _, reservation := range resp.Reservations {
+		for _, instance := range reservation.Instances {
+			instances = append(instances, Instance{name: findTag("Name", instance.Tags), ip: *instance.PrivateIpAddress})
+		}
 	}
 
 	// Sort by name, ip
