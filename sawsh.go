@@ -3,12 +3,7 @@ package main
 import (
 	"bufio"
 	"errors"
-	"flag"
 	"fmt"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/olekukonko/tablewriter"
 	"log"
 	"net"
 	"os"
@@ -17,37 +12,83 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/ec2"
+	"github.com/olekukonko/tablewriter"
+	"github.com/urfave/cli"
 )
 
-var config Config
-
 func main() {
+	app := cli.NewApp()
+	app.Name = "sawsh"
+	app.Usage = "Query and connect to ec2 instances"
+	app.HideVersion = true
+	app.Copyright = "(c) Dries De Peuter <dries@depeuter.io>"
+	app.ArgsUsage = "[filter]"
+	app.Action = connectAction
+	app.EnableBashCompletion = true
 
-	config.transparant = *flag.Bool("transparant", true, "Forward lookup failures")
-	flag.Parse()
-	if flag.NArg() < 1 {
-		flag.PrintDefaults()
-		os.Exit(1)
+	app.Commands = []cli.Command{
+		{
+			Name:   "list",
+			Usage:  "Render a list of instances",
+			Action: listAction,
+		},
+		{
+			Name:      "connect",
+			Usage:     "Search and connect to an instance",
+			ArgsUsage: "[filter]",
+			Flags: []cli.Flag{
+				cli.BoolFlag{
+					Name:  "transparant",
+					Usage: "Connect if the ec2 query has no results",
+				},
+			},
+			Action: connectAction,
+		},
 	}
-	config.hostname = flag.Args()[0]
 
-	var ip string
-	if hostIp, err := parseInput(config.hostname); err == nil {
-		ip = hostIp
-	} else {
-		ip = queryEC2(config.hostname)
+	err := app.Run(os.Args)
+	if err != nil {
+		log.Fatal(err)
 	}
-
-	fmt.Println("Connecting to", ip, "...\n")
-
-	cmd := exec.Command("ssh", ip)
-	cmd.Stdout = os.Stdout
-	cmd.Stdin = os.Stdin
-	cmd.Stderr = os.Stderr
-	cmd.Run()
 }
 
-func parseInput(hostname string) (string, error) {
+func connectAction(c *cli.Context) error {
+	hostname := c.Args().First()
+	ip, err := parseHostname(hostname)
+	if err == nil {
+		return sshConnect(ip)
+	}
+	instances := queryAws(hostname, "us-east-1")
+	if len(instances) == 0 {
+		fmt.Println("No instances found")
+
+		if c.Bool("transparant") {
+			sshConnect(hostname)
+		}
+		return nil
+	} else if len(instances) == 1 {
+		sshConnect(instances[0].ip)
+		return nil
+	}
+	printTable(instances)
+	instance := getTableChoice(instances)
+	sshConnect(instance.ip)
+	return nil
+}
+
+func listAction(c *cli.Context) error {
+	hostname := c.Args().First()
+	instances := queryAws(hostname, "us-east-1")
+	printTable(instances)
+	return nil
+}
+
+// Check if the hostname is a known aws hostname format `ip-123-123-123-123` or just a plain ip.
+func parseHostname(hostname string) (string, error) {
 	if net.ParseIP(hostname) != nil {
 		return hostname, nil
 	}
@@ -62,45 +103,19 @@ func parseInput(hostname string) (string, error) {
 	return fmt.Sprintf("%s.%s.%s.%s", m[0][1], m[0][2], m[0][3], m[0][4]), err
 }
 
-func queryEC2(filter string) string {
-	awsRegion := "us-east-1"
+// Open an interactive ssh connection
+func sshConnect(hostname string) error {
+	fmt.Printf("Connecting to %s...\n", hostname)
+	cmd := exec.Command("ssh", hostname)
+	cmd.Stdout = os.Stdout
+	cmd.Stdin = os.Stdin
+	cmd.Stderr = os.Stderr
+	cmd.Run()
 
-	instances := findInstances(filter, awsRegion)
-	if len(instances) == 1 {
-		return instances[0].ip
-	} else if len(instances) == 0 {
-		if config.transparant {
-			return filter
-		}
-		fmt.Println("Could not match any instances")
-		os.Exit(1)
-	}
-	fmt.Printf("listing instances with tag %v in: %v\n", filter, awsRegion)
-	printTable(instances)
-
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Pick a number: ")
-	choice, _ := reader.ReadString('\n')
-	choiceInt, err := strconv.Atoi(choice[:len(choice)-1])
-	if err != nil {
-		choiceInt = 0
-	}
-
-	return instances[choiceInt].ip
+	return nil
 }
 
-func printTable(instances []Instance) {
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"", "Name", "Ip"})
-
-	for index, instance := range instances {
-		table.Append([]string{strconv.Itoa(index), instance.name, instance.ip})
-	}
-
-	table.Render()
-}
-
-func findInstances(filter string, awsRegion string) []Instance {
+func queryAws(filter string, awsRegion string) []Instance {
 	sess := session.Must(session.NewSession())
 
 	svc := ec2.New(sess, &aws.Config{Region: aws.String(awsRegion)})
@@ -153,17 +168,34 @@ func findTag(key string, tags []*ec2.Tag) string {
 	return ""
 }
 
+func printTable(instances []Instance) {
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"", "Name", "Ip"})
+
+	for index, instance := range instances {
+		table.Append([]string{strconv.Itoa(index), instance.name, instance.ip})
+	}
+
+	table.Render()
+}
+
+func getTableChoice(instances []Instance) Instance {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Pick a number: ")
+	choice, _ := reader.ReadString('\n')
+	choiceInt, err := strconv.Atoi(choice[:len(choice)-1])
+	if err != nil {
+		choiceInt = 0
+	}
+
+	if choiceInt < 0 || choiceInt > len(instances) {
+		choiceInt = 0
+	}
+
+	return instances[choiceInt]
+}
+
 type Instance struct {
 	name string
 	ip   string
-}
-
-type Target struct {
-	ip   string
-	user string
-}
-
-type Config struct {
-	transparant bool
-	hostname    string
 }

@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestParseInput(t *testing.T) {
+func TestParseHostname(t *testing.T) {
 
 	cases := []struct {
 		in, out string
@@ -16,7 +16,7 @@ func TestParseInput(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		response, err := parseInput(c.in)
+		response, err := parseHostname(c.in)
 		if err != nil {
 			t.Fatal(err)
 			t.Fatalf("Failed to parse input %v", err)
