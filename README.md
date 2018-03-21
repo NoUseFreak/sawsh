@@ -34,6 +34,26 @@ Pick a number: 1
 Connecting to 10.1.2.10 ...
 ```
 
+```
+$ sawsh -h
+NAME:
+   sawsh - Query and connect to ec2 instances
+
+USAGE:
+   sawsh [global options] command [command options] [filter]
+
+COMMANDS:
+     list     Render a list of instances
+     connect  Search and connect to an instance
+     help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --help, -h  show help
+
+COPYRIGHT:
+   (c) Dries De Peuter <dries@depeuter.io>
+```
+
 ## Install
 
 ### Official release
