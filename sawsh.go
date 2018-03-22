@@ -88,6 +88,8 @@ func connectAction(c *cli.Context) error {
 	instances, err := findInstances(c, hostname)
 	if err != nil && c.Bool("transparant") {
 		return sshConnect(c, hostname)
+	} else if len(instances) == 0 {
+		return nil
 	}
 	var instance Instance
 	if len(instances) > 1 {
@@ -98,6 +100,7 @@ func connectAction(c *cli.Context) error {
 	}
 	return sshConnect(c, instance.ip)
 }
+
 func execAction(c *cli.Context) error {
 	hostname := c.Args().First()
 	command := c.Args().Get(1)
@@ -141,7 +144,7 @@ func findInstances(c *cli.Context, hostname string) ([]Instance, error) {
 	instances := queryAws(hostname, c.String("aws-region"))
 	if len(instances) == 0 {
 		fmt.Println("No instances found")
-		return nil, errors.New("No instance found")
+		return instances, errors.New("No instance found")
 	}
 	return instances, err
 }
