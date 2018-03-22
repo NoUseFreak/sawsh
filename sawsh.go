@@ -12,6 +12,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -135,7 +136,6 @@ func findInstances(c *cli.Context, hostname string) ([]Instance, error) {
 	var err error
 	ip, err := parseHostname(hostname)
 	if err == nil {
-		fmt.Printf("%v", "sdfsdf")
 		return []Instance{Instance{ip: ip}}, err
 	}
 	instances := queryAws(hostname, c.String("aws-region"))
@@ -205,7 +205,11 @@ func queryAws(filter string, awsRegion string) []Instance {
 	var instances []Instance
 	for _, reservation := range resp.Reservations {
 		for _, instance := range reservation.Instances {
-			instances = append(instances, Instance{name: findTag("Name", instance.Tags), ip: *instance.PrivateIpAddress})
+			instances = append(instances, Instance{
+				name:       findTag("Name", instance.Tags),
+				ip:         *instance.PrivateIpAddress,
+				launchTime: *instance.LaunchTime,
+			})
 		}
 	}
 
@@ -233,10 +237,10 @@ func findTag(key string, tags []*ec2.Tag) string {
 
 func printTable(instances []Instance) {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"", "Name", "Ip"})
+	table.SetHeader([]string{"", "Name", "Ip", "LaunchTime"})
 
 	for index, instance := range instances {
-		table.Append([]string{strconv.Itoa(index), instance.name, instance.ip})
+		table.Append([]string{strconv.Itoa(index), instance.name, instance.ip, instance.launchTime.String()})
 	}
 
 	table.Render()
@@ -259,8 +263,9 @@ func getTableChoice(instances []Instance) Instance {
 }
 
 type Instance struct {
-	name string
-	ip   string
+	name       string
+	ip         string
+	launchTime time.Time
 }
 
 func getInstanceIps(instances []Instance) []string {
