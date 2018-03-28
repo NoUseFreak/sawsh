@@ -1,4 +1,6 @@
 # sawsh
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNoUseFreak%2Fsawsh.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FNoUseFreak%2Fsawsh?ref=badge_shield)
+
 
 SSH wrapper for aws to make your life easier.
 
@@ -89,3 +91,7 @@ It may be useful to setup some aliases if you use multiple aws accounts or want 
 ```sh
 $ alias prod_ssh='AWS_PROFILE=prod sawsh'
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNoUseFreak%2Fsawsh.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FNoUseFreak%2Fsawsh?ref=badge_large)
