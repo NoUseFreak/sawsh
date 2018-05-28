@@ -62,9 +62,8 @@ COPYRIGHT:
 
 Download the latest [release](https://github.com/NoUseFreak/sawsh/releases).
 
-```sh
-$ wget https://github.com/NoUseFreak/sawsh/releases/download/0.1.0/darwin_amd64.tar.gz  -O - | tar -xz
-$ sudo mv ./sawsh /usr/local/bin/sawsh
+```bash
+curl -sL http://bit.ly/get-sawsh | bash
 ```
 
 ### Build from source
