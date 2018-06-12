@@ -1,8 +1,15 @@
+os:
+  - osx
 language: go
 go:
   - master
 before_install:
   - gem install fpm
+addons:
+  apt:
+    packages:
+      - bsdtar
+      - rpm
 deploy:
   provider: releases
   api_key:
