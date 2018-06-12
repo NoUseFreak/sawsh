@@ -25,6 +25,7 @@ default:
 	go get -d
 	go test
 	go build -o build/sawsh sawsh.go
+	$(MAKE) clean package
 
 all: windows darwin linux
 
