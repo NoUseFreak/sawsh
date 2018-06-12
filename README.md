@@ -1,6 +1,6 @@
 # sawsh
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNoUseFreak%2Fsawsh.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FNoUseFreak%2Fsawsh?ref=badge_shield)
-
+[![Build Status](https://travis-ci.org/NoUseFreak/sawsh.svg?branch=master)](https://travis-ci.org/NoUseFreak/sawsh)
 
 SSH wrapper for aws to make your life easier.
 
