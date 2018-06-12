@@ -20,7 +20,7 @@ fpm_osx = cd build && tar xvf $(1)_$(2).tar.gz && rm -rf sawsh_${version}_${2}.p
 
 .PHONY: all windows darwin linux clean
 
-default: clean all package
+default: clean build all package
 
 build:
 	mkdir -p build
