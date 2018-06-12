@@ -21,17 +21,16 @@ more than one result is found.
 
 ```sh
 $ sawsh webserver
-listing instances with tag core in: us-east-1
-+---+--------------------+-------------+
-|   |       NAME         |      IP     |
-+---+--------------------+-------------+
-| 0 | prod-webserver-1   | 10.1.1.10   |
-| 1 | prod-webserver-2   | 10.1.2.10   |
-| 2 | prod-webserver-3   | 10.1.3.10   |
-| 3 | prod-webserver-4   | 10.1.1.11   |
-| 4 | prod-webserver-5   | 10.1.2.11   |
-| 5 | prod-webserver-6   | 10.1.3.11   |
-+---+--------------------+-------------+
++---+--------------------+-------------+-------------------------------+
+|   |        NAME        |      IP     |          LAUNCHTIME           |
++---+--------------------+-------------+-------------------------------+
+| 0 | prod-webserver-1   | 10.1.1.10   | 2018-02-01 21:13:44 +0000 UTC |
+| 1 | prod-webserver-2   | 10.1.2.10   | 2018-03-15 18:57:02 +0000 UTC |
+| 2 | prod-webserver-3   | 10.1.3.10   | 2018-04-19 18:04:07 +0000 UTC |
+| 3 | prod-webserver-4   | 10.1.1.11   | 2018-02-15 12:36:45 +0000 UTC |
+| 4 | prod-webserver-5   | 10.1.2.11   | 2018-06-07 15:54:00 +0000 UTC |
+| 5 | prod-webserver-6   | 10.1.3.11   | 2018-06-07 15:54:00 +0000 UTC |
++---+--------------------+-------------|-------------------------------+
 Pick a number: 1
 Connecting to 10.1.2.10 ...
 ```
@@ -45,15 +44,18 @@ USAGE:
    sawsh [global options] command [command options] [filter]
 
 COMMANDS:
-     list     Render a list of instances
      connect  Search and connect to an instance
+     exec     Search and execute a command on multiple servers
+     list     Render a list of instances
      help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --help, -h  show help
+   --aws-region value  (default: "us-east-1")
+   --help, -h          show help
 
 COPYRIGHT:
    (c) Dries De Peuter <dries@depeuter.io>
+
 ```
 
 ## Install
