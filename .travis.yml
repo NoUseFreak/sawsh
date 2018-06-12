@@ -1,6 +1,8 @@
 os:
   - osx
 language: go
+services:
+  - docker
 go:
   - master
 before_install:

@@ -20,12 +20,13 @@ fpm_osx = cd build && tar xvf $(1)_$(2).tar.gz && rm -rf sawsh_${version}_${2}.p
 
 .PHONY: all windows darwin linux clean
 
-default:
+default: clean all package
+
+build:
 	mkdir -p build
 	go get -d
 	go test
 	go build -o build/sawsh sawsh.go
-	$(MAKE) clean all package
 
 all: windows darwin linux
 
