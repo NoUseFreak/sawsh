@@ -23,6 +23,7 @@ fpm_osx = cd build && tar xvf $(1)_$(2).tar.gz && rm -rf sawsh_${version}_${2}.p
 default:
 	mkdir -p build
 	go get -d
+	go test
 	go build -o build/sawsh sawsh.go
 
 all: windows darwin linux
