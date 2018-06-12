@@ -71,6 +71,12 @@ func main() {
 			Name:   "list",
 			Usage:  "Render a list of instances",
 			Action: listAction,
+			Flags: []cli.Flag{
+				cli.BoolFlag{
+					Name:  "plain",
+					Usage: "Print only the resulting ip's",
+				},
+			},
 		},
 	}
 
@@ -130,7 +136,12 @@ func execAction(c *cli.Context) error {
 func listAction(c *cli.Context) error {
 	hostname := c.Args().First()
 	instances := queryAws(hostname, "us-east-1")
-	printTable(instances)
+	if c.Bool("plain") {
+		printPlain(instances)
+	} else {
+		printTable(instances)
+	}
+
 	return nil
 }
 
@@ -247,6 +258,12 @@ func printTable(instances []Instance) {
 	}
 
 	table.Render()
+}
+
+func printPlain(instances []Instance) {
+	for _, instance := range instances {
+		fmt.Println(instance.ip)
+	}
 }
 
 func getTableChoice(instances []Instance) Instance {
