@@ -13,14 +13,18 @@ fpm_rpm = cd build && tar xvf $(1)_$(2).tar.gz && rm -rf sawsh_${version}_${2}.r
 	  && docker run --rm -v `pwd`:/workspace -w /workspace liuedy/centos-fpm fpm -s dir -t rpm -a $(2) -n ${appname} \
 	  -v ${version} --prefix=/usr/local/bin -p sawsh_${version}_${2}.rpm ${appname} \
 	  && rm -rf ${appname}
-fpm_osx = cd build && tar xvf $(1)_$(2).tar.gz && rm -rf sawsh_${version}_${2}.pkg \
+fpm_osx2 = cd build && tar xvf $(1)_$(2).tar.gz && rm -rf sawsh_${version}_${2}.pkg \
 	  && fpm -s dir -t osxpkg -a $(2) -n ${appname} \
 	  -v ${version} --prefix=/usr/local/bin -p sawsh_${version}_${2}.pkg ${appname} \
 	  && rm -rf ${appname}
+fpm_osx = cd build && tar xvf $(1)_$(2).tar.gz && rm -rf sawsh_${version}_${2}.pkg \
+	  && docker run --rm -v `pwd`:/workspace -w /workspace liuedy/centos-fpm fpm -s dir -t osxpkg -a $(2) -n ${appname} \
+	  -v ${version} --prefix=/usr/local/bin -p sawsh_${version}_${2}.pkg ${appname} \
+	  && rm -rf ${appname}
 
-.PHONY: all windows darwin linux clean
+.PHONY: all windows darwin linux clean build
 
-default: clean build all package
+default: clean build all
 
 build:
 	mkdir -p build
