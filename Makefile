@@ -1,13 +1,7 @@
 appname := sawsh
 version := $(shell git describe --tags --abbrev=0)
 
-sources := $(wildcard *.go)
-
-build = GOOS=$(1) GOARCH=$(2) go build -ldflags=-s -o build/$(appname)$(3)
-tar = cd build && tar -cvzf $(1)_$(2).tar.gz $(appname)$(3) && rm $(appname)$(3)
-zip = cd build && zip $(1)_$(2).zip $(appname)$(3) && rm $(appname)$(3)
-
-.PHONY: all windows darwin linux clean build
+.PHONY: all clean build
 
 default: clean build all package
 
@@ -20,7 +14,9 @@ build:
 all:
 	go get github.com/mitchellh/gox
 	mkdir -p build
-	gox -output="build/{{.OS}}_{{.Arch}}/sawsh"
+	gox \
+		-ldflags=-s \
+		-output="build/{{.OS}}_{{.Arch}}/sawsh"
 
 clean:
 	rm -rf build/
