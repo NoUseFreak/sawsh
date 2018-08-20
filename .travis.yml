@@ -25,7 +25,7 @@ deploy:
   api_key:
     secure: iqzsKZC5jysIKHBxhf5nvKoMEm38xpHnvpvRucv1SCAI/m5EpFgzp6kh4JdyJ9YvA6AVTAh1OVdqTDvlWjm903S3Lowt7HvWeH+9Wy7mnrX5GxQHAEJ+q0JVcK1MA+9gnXP7JebWIv42vH7MkD/yKXYUdLlQaOMPD+8tvuCshUFisqrC+TyLG8nBkNFIjhYGId/w9ymtP1vkCP9VJZDlTpx3Th6k/jgD50G604r8IwHRAKaJQ+YgkCV7JEX6qq86lN7XfW0xcRBMlyXEX4Vpl3YPkWJfvbsJDsAAtdJJUKT5Zfl4h8AxhTWb3kODWuZYmGGavEEmWasJPYDMzdAv/XFWObqckDfN/byBlR4Sd4CBqB4eLqn7I9KWOUMzG4iLfzIC00MI0u9VBrmhYe3jh7F/GuaI5Ra4ISqy7HvyV4Yh+kGYovpvVB8bJERvTqSXK1VxM2CYspCugLicVkXVSxJbIhHpX1smB8y0RjJZk0ijgstl83lJzniWx2Q2DfIW+uAJSL7GwlgSHO5M3rzhUgoMiGWbLFMWFuk03/QLMdJDq8zd903pctCngGmZbI5Ewejg5MGUyBco+S6w96Xk0r/g9+jagdhawDp0pxkhN8s5yL6KNSCVibjYdw4vlSef8OnwYyPrQfqGkKqrYPN7dNSI12HwX2JW0sq5y1v9KWE=
   file_glob: true
-  file: build/*
+  file: build/archive/*
   skip_cleanup: true
   on:
     repo: NoUseFreak/sawsh
