@@ -142,6 +142,14 @@ func printPlain(instances []Instance) {
 	}
 }
 
+func printCSV(instances []Instance) {
+	ips := []string{}
+	for _, instance := range instances {
+		ips = append(ips, instance.ip)
+	}
+	fmt.Println(strings.Join(ips, ","))
+}
+
 func getTableChoice(instances []Instance) Instance {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Pick a number: ")

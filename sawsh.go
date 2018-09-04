@@ -65,6 +65,10 @@ func main() {
 					Name:  "plain",
 					Usage: "Print only the resulting ip's",
 				},
+				cli.BoolFlag{
+					Name:  "csv",
+					Usage: "Print ip's in csv format",
+				},
 			},
 		},
 	}
@@ -127,6 +131,8 @@ func listAction(c *cli.Context) error {
 	instances := queryAws(hostname, "us-east-1")
 	if c.Bool("plain") {
 		printPlain(instances)
+	} else if c.Bool("csv") {
+		printCSV(instances)
 	} else {
 		printTable(instances)
 	}
