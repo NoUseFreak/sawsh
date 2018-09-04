@@ -9,7 +9,7 @@ build:
 	mkdir -p build
 	go get -d
 	go test
-	go build -o build/sawsh sawsh.go
+	go build -o build/sawsh *.go
 
 all:
 	go get github.com/mitchellh/gox
