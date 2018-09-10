@@ -17,7 +17,7 @@ all:
 	go get github.com/mitchellh/gox
 	mkdir -p build
 	gox \
-		-ldflags="-s -X main.version=${version} -X main.buildDate=${build_date}" \
+		-ldflags="-s -X 'main.version=${version}' -X 'main.buildDate=${build_date}'" \
 		-output="build/{{.OS}}_{{.Arch}}/sawsh"
 
 clean:
