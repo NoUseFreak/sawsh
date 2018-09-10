@@ -10,11 +10,14 @@ import (
 	"github.com/urfave/cli"
 )
 
+var version string
+var buildDate string
+
 func main() {
 	app := cli.NewApp()
 	app.Name = "sawsh"
+	app.Version = getVersion()
 	app.Usage = "Query and connect to ec2 instances"
-	app.HideVersion = true
 	app.Copyright = "(c) Dries De Peuter <dries@depeuter.io>"
 	app.ArgsUsage = "[filter]"
 	app.Action = connectAction
@@ -80,6 +83,22 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func getVersion() string {
+	var versionString string
+
+	if version != "" {
+		versionString = version
+	} else {
+		versionString = "dev"
+	}
+
+	if buildDate != "" {
+		versionString += fmt.Sprintf(" - %s", buildDate)
+	}
+
+	return versionString
 }
 
 func connectAction(c *cli.Context) error {

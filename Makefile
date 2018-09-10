@@ -1,5 +1,7 @@
 appname := sawsh
 version := $(shell git describe --tags --abbrev=0)
+build_date := $(shell date +%Y-%m-%d\ %H:%M)
+
 
 .PHONY: all clean build
 
@@ -9,13 +11,13 @@ build:
 	mkdir -p build
 	go get -d
 	go test
-	go build -o build/sawsh *.go
+	go build -ldflags="-s -X 'main.version=${version}' -X 'main.buildDate=${build_date}'" -o build/sawsh *.go
 
 all:
 	go get github.com/mitchellh/gox
 	mkdir -p build
 	gox \
-		-ldflags=-s \
+		-ldflags="-s -X main.version=${version} -X main.buildDate=${build_date}" \
 		-output="build/{{.OS}}_{{.Arch}}/sawsh"
 
 clean:
