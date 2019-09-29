@@ -1,0 +1,9 @@
+homebrew:
+  - name: sawsh
+    description: SSH wrapper for aws to make your life easier.
+    homepage: https://github.com/NoUseFreak/sawsh
+    url: https://github.com/NoUseFreak/sawsh/releases/download/{{ .Version }}/darwin_amd64.zip
+    version: "{{ .Version }}"
+    tap:
+      url: git@github.com:NoUseFreak/homebrew-brew.git
+    test: system "#{bin}/{{ .Name }} -h"

@@ -1,10 +1,9 @@
 sudo: required
 language: go
 go:
-  - master
-
+- master
 deploy:
-  provider: releases
+- provider: releases
   api_key:
     secure: iqzsKZC5jysIKHBxhf5nvKoMEm38xpHnvpvRucv1SCAI/m5EpFgzp6kh4JdyJ9YvA6AVTAh1OVdqTDvlWjm903S3Lowt7HvWeH+9Wy7mnrX5GxQHAEJ+q0JVcK1MA+9gnXP7JebWIv42vH7MkD/yKXYUdLlQaOMPD+8tvuCshUFisqrC+TyLG8nBkNFIjhYGId/w9ymtP1vkCP9VJZDlTpx3Th6k/jgD50G604r8IwHRAKaJQ+YgkCV7JEX6qq86lN7XfW0xcRBMlyXEX4Vpl3YPkWJfvbsJDsAAtdJJUKT5Zfl4h8AxhTWb3kODWuZYmGGavEEmWasJPYDMzdAv/XFWObqckDfN/byBlR4Sd4CBqB4eLqn7I9KWOUMzG4iLfzIC00MI0u9VBrmhYe3jh7F/GuaI5Ra4ISqy7HvyV4Yh+kGYovpvVB8bJERvTqSXK1VxM2CYspCugLicVkXVSxJbIhHpX1smB8y0RjJZk0ijgstl83lJzniWx2Q2DfIW+uAJSL7GwlgSHO5M3rzhUgoMiGWbLFMWFuk03/QLMdJDq8zd903pctCngGmZbI5Ewejg5MGUyBco+S6w96Xk0r/g9+jagdhawDp0pxkhN8s5yL6KNSCVibjYdw4vlSef8OnwYyPrQfqGkKqrYPN7dNSI12HwX2JW0sq5y1v9KWE=
   file_glob: true
@@ -14,3 +13,12 @@ deploy:
     repo: NoUseFreak/sawsh
     tags: true
     branch: master
+- provider: script
+  script: bash scripts/homebrew.sh
+  on:
+    repo: NoUseFreak/sawsh
+    branch: master
+    tags: true
+env:
+  global:
+  - secure: N03/GWwc7IWWaBqYaRZIsqDEfaCP41gBz9vM61y7qGrIIA9k1JqHeCMTSLj20Cf2/kkGhbbdUZqfzNK5waDVXn9IYq4u0YfD7Y3fNXvqKK87AmSVMCfAyII4vjG2wnqIy5yOKuBYh5W9g79Vy7y7zA2g2jSsc0MwaBVZM8ED7wGPCuOkepDQ6FO5I3zGEvuOLHAuZ2V/F38PRd/8uaRr8qcnWQebPi3Cah9COEvo6RA7ABNr9PqB/OO4d1IrPicQQxSaCHS/BbvaFDKy9PnjglxsXH0F6QxQt0bNx0+3962JYFu1Om7cX+m8iQT1xzkfeLS5APe9QztZpI8v5vK4aAsc+pTEaIFeroYvGqjaebQVI/Qd8i185/O/js1A9thJaLmo6aGzRWR8rT1VSFuEcHlJlACFMevgBeJSs6gApl3nvWV34qY7NRPAj6VXRsupwxJ5MkUsSvEebn/85jZFTqrOFD7Xfsw3Sk2/+q3fYFnZsPJMfzcUG7Aabq3aq9ikUIQfp36xq04tRF+79LRMF6gVnLMr9hIjW5G3elY8FRv4gNVo5GuYNaVShtWnLLoBzrggHtnrmu4VwH28zdozIYM7UkgtAjCTe5S30zGi5ZgnmuBtNaz6200RWQCJhb6qMzZDGw+5POOEqLj1V5jEz5tTD8s4adiwLiyAIAqbaBA=
