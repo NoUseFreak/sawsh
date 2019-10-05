@@ -1,7 +1,13 @@
+letitgo:
+  name: sawsh
+  description: SSH wrapper for aws to make your life easier.
+
+ghrelease:
+  - assets:
+      - ./build/archive/*
+
 homebrew:
-  - name: sawsh
-    description: SSH wrapper for aws to make your life easier.
-    homepage: https://github.com/NoUseFreak/sawsh
+  - homepage: https://github.com/NoUseFreak/sawsh
     url: https://github.com/NoUseFreak/sawsh/releases/download/{{ .Version }}/darwin_amd64.zip
     version: "{{ .Version }}"
     tap:
