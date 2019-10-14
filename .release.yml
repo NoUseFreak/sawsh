@@ -2,7 +2,10 @@ letitgo:
   name: sawsh
   description: SSH wrapper for aws to make your life easier.
 
-ghrelease:
+changelog:
+  - file: CHANGELOG.md
+
+githubrelease:
   - assets:
       - ./build/archive/*
 
