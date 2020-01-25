@@ -1,31 +1,11 @@
-package main
+package utils
 
 import (
+	"testing"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/ec2"
-	"testing"
 )
-
-func TestParseHostname(t *testing.T) {
-
-	cases := []struct {
-		in, out string
-	}{
-		{"123.123.123.123", "123.123.123.123"},
-		{"ip-123-123-123-123", "123.123.123.123"},
-	}
-
-	for _, c := range cases {
-		response, err := parseHostname(c.in)
-		if err != nil {
-			t.Fatal(err)
-			t.Fatalf("Failed to parse input %v", err)
-		}
-		if response != c.out {
-			t.Fatalf("Response did not match expeceted output")
-		}
-	}
-}
 
 func TestFindTag(t *testing.T) {
 	cases := []struct {
@@ -33,6 +13,7 @@ func TestFindTag(t *testing.T) {
 	}{
 		{"Name", "Name Value"},
 		{"Environment", "Production"},
+		{"Fake", ""},
 	}
 	tags := []*ec2.Tag{
 		&ec2.Tag{

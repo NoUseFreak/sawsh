@@ -37,24 +37,24 @@ Connecting to 10.1.2.10 ...
 
 ```
 $ sawsh -h
-NAME:
-   sawsh - Query and connect to ec2 instances
+Query and connect to ec2 instances
 
-USAGE:
-   sawsh [global options] command [command options] [filter]
+Usage:
+  sawsh [flags]
+  sawsh [command]
 
-COMMANDS:
-     connect  Search and connect to an instance
-     exec     Search and execute a command on multiple servers
-     list     Render a list of instances
-     help, h  Shows a list of commands or help for one command
+Available Commands:
+  connect     Connect to an instance
+  help        Help about any command
+  list        List instances
 
-GLOBAL OPTIONS:
-   --aws-region value  (default: "us-east-1")
-   --help, -h          show help
+Flags:
+  -d, --debug              Enable debugging
+  -h, --help               help for sawsh
+      --ssm                Try connecting using AWS Service Manager
+  -v, --verbosity string   Log level (debug, info, warn, error, fatal, panic (default "info")
 
-COPYRIGHT:
-   (c) Dries De Peuter <dries@depeuter.io>
+Use "sawsh [command] --help" for more information about a command.
 
 ```
 

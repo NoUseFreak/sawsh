@@ -5,9 +5,16 @@ letitgo:
     - type: changelog
       file: CHANGELOG.md
 
+    - type: archive
+      source: "./build/bin/*"
+      target: "./build/pkg/"
+      extras:
+        - "LICENSE"
+        - "CHANGELOG.md"
+
     - type: githubrelease
       assets:
-        - ./build/archive/*
+        - ./build/pkg/*
 
     - type: homebrew
       homepage: https://github.com/NoUseFreak/sawsh

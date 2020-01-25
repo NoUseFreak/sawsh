@@ -1,7 +1,7 @@
 sudo: required
 language: go
 go:
-- master
+- stable
 deploy:
 - provider: script
   script: bash scripts/release.sh
@@ -11,4 +11,5 @@ deploy:
     tags: true
 env:
   global:
+  - GO111MODULE=on
   - secure: N03/GWwc7IWWaBqYaRZIsqDEfaCP41gBz9vM61y7qGrIIA9k1JqHeCMTSLj20Cf2/kkGhbbdUZqfzNK5waDVXn9IYq4u0YfD7Y3fNXvqKK87AmSVMCfAyII4vjG2wnqIy5yOKuBYh5W9g79Vy7y7zA2g2jSsc0MwaBVZM8ED7wGPCuOkepDQ6FO5I3zGEvuOLHAuZ2V/F38PRd/8uaRr8qcnWQebPi3Cah9COEvo6RA7ABNr9PqB/OO4d1IrPicQQxSaCHS/BbvaFDKy9PnjglxsXH0F6QxQt0bNx0+3962JYFu1Om7cX+m8iQT1xzkfeLS5APe9QztZpI8v5vK4aAsc+pTEaIFeroYvGqjaebQVI/Qd8i185/O/js1A9thJaLmo6aGzRWR8rT1VSFuEcHlJlACFMevgBeJSs6gApl3nvWV34qY7NRPAj6VXRsupwxJ5MkUsSvEebn/85jZFTqrOFD7Xfsw3Sk2/+q3fYFnZsPJMfzcUG7Aabq3aq9ikUIQfp36xq04tRF+79LRMF6gVnLMr9hIjW5G3elY8FRv4gNVo5GuYNaVShtWnLLoBzrggHtnrmu4VwH28zdozIYM7UkgtAjCTe5S30zGi5ZgnmuBtNaz6200RWQCJhb6qMzZDGw+5POOEqLj1V5jEz5tTD8s4adiwLiyAIAqbaBA=

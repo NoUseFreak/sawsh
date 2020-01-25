@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-
-set -e 
+#
+# This script tests the application from source.
 
 # Get the parent directory of where this script is.
 SOURCE="${BASH_SOURCE[0]}"
@@ -9,6 +9,6 @@ DIR="$( cd -P "$( dirname "$SOURCE" )/.." && pwd )"
 
 cd "$DIR"
 
-mkdir /tmp/bin
-curl -sL http://bit.ly/gh-get | BIN_DIR=/tmp/bin PROJECT=NoUseFreak/letitgo bash
-/tmp/bin/letitgo --loglevel debug
+go mod download
+
+go test ./...
