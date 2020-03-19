@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0 (March 19, 2020)
+
+- Refactor
+- New letitgo format
+
+
 ## 0.2.5 (October 14, 2019)
 
 - Generate changelog
@@ -95,5 +101,10 @@
 - Add install docs
 - Add more examples
 - Add clear docs and make all command
+
+
+## 0.1.0 (July 1, 2017)
+
+- Fix local installer
 
 
