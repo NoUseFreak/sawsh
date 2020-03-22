@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 (March 22, 2020)
+
+- Embed version
+
+
 ## 1.0.0 (March 19, 2020)
 
 - Refactor
@@ -100,11 +105,5 @@
 - Add feature list
 - Add install docs
 - Add more examples
-- Add clear docs and make all command
-
-
-## 0.1.0 (July 1, 2017)
-
-- Fix local installer
 
 
