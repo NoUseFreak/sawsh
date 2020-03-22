@@ -11,4 +11,4 @@ cd "$DIR"
 
 mkdir /tmp/bin
 curl -sL http://bit.ly/gh-get | BIN_DIR=/tmp/bin PROJECT=NoUseFreak/letitgo bash
-/tmp/bin/letitgo --loglevel debug
+/tmp/bin/letitgo $(git describe --tags --abbrev=0)
