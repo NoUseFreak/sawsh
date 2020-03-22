@@ -1,12 +1,9 @@
 # Changelog
 
-## 1.0.1 (March 22, 2020)
+## 1.0.0 (March 22, 2020)
 
+- Fix release
 - Embed version
-
-
-## 1.0.0 (March 19, 2020)
-
 - Refactor
 - New letitgo format
 
@@ -102,8 +99,5 @@
 - Consistent docs
 - Sh codeblocks
 - Improve installation instructions
-- Add feature list
-- Add install docs
-- Add more examples
 
 
