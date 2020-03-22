@@ -1,6 +1,9 @@
 # sawsh
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNoUseFreak%2Fsawsh.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FNoUseFreak%2Fsawsh?ref=badge_shield)
-[![Build Status](https://travis-ci.org/NoUseFreak/sawsh.svg?branch=master)](https://travis-ci.org/NoUseFreak/sawsh)
+[![Build status](https://img.shields.io/travis/NoUseFreak/sawsh/master?style=flat-square)](https://travis-ci.org/NoUseFreak/sawsh)
+[![Release](https://img.shields.io/github/v/release/NoUseFreak/sawsh?style=flat-square)](https://github.com/NoUseFreak/sawsh/releases)
+[![Report](https://goreportcard.com/badge/github.com/nousefreak/sawsh?style=flat-square)](https://goreportcard.com/report/github.com/nousefreak/sawsh)
+[![License](https://img.shields.io/github/license/NoUseFreak/sawsh?style=flat-square)](https://github.com/NoUseFreak/sawsh/blob/master/LICENSE)
+[![Coffee](https://img.shields.io/badge/☕️-Buy%20me%20a%20coffee-blue?style=flat-square&color=blueviolet)](https://www.buymeacoffee.com/driesdepeuter)
 
 SSH wrapper for aws to make your life easier.
 
