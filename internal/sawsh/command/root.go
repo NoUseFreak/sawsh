@@ -42,6 +42,7 @@ func initLogs(out io.Writer, level string) error {
 	return nil
 }
 
+// Execute starts the CLI application.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		logrus.Error(err)

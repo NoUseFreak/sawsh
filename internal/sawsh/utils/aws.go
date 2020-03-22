@@ -12,6 +12,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/ec2"
 )
 
+// ListInstances queries the AWS API for instances matching the hostname.
 func ListInstances(hostname string) []sawsh.Instance {
 	sess, err := session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
@@ -43,12 +44,12 @@ func ListInstances(hostname string) []sawsh.Instance {
 		for _, i := range reservation.Instances {
 			inst := sawsh.Instance{
 				Name:       findTag("Name", i.Tags),
-				Ip:         *i.PrivateIpAddress,
-				InstanceId: *i.InstanceId,
+				IP:         *i.PrivateIpAddress,
+				InstanceID: *i.InstanceId,
 				LaunchTime: *i.LaunchTime,
 			}
 			if i.PublicIpAddress != nil {
-				inst.PublicIp = *i.PublicIpAddress
+				inst.PublicIP = *i.PublicIpAddress
 			}
 			instances = append(instances, inst)
 
@@ -58,7 +59,7 @@ func ListInstances(hostname string) []sawsh.Instance {
 	// Sort by name, ip
 	sort.Slice(instances, func(i, j int) bool {
 		if instances[i].Name == instances[j].Name {
-			return instances[i].Ip < instances[j].Ip
+			return instances[i].IP < instances[j].IP
 		}
 		return instances[i].Name < instances[j].Name
 	})

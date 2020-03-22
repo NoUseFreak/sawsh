@@ -61,25 +61,25 @@ func doResolve(cmd *cobra.Command, hostname string) *sawsh.Instance {
 	}
 	logrus.Debugf("Unable to parse input")
 	return &sawsh.Instance{
-		Ip: hostname,
+		IP: hostname,
 	}
 }
 
 func sshConnect(opts sawsh.SSHOptions, instance sawsh.Instance, debug bool) error {
-	if instance.PublicIp != "" && isPortOpen(instance.PublicIp, 22) {
-		return executeSSHConnect(opts, instance.PublicIp, nil, debug)
+	if instance.PublicIP != "" && isPortOpen(instance.PublicIP, 22) {
+		return executeSSHConnect(opts, instance.PublicIP, nil, debug)
 	}
-	if isPortOpen(instance.Ip, 22) {
-		return executeSSHConnect(opts, instance.Ip, nil, debug)
+	if isPortOpen(instance.IP, 22) {
+		return executeSSHConnect(opts, instance.IP, nil, debug)
 	}
 	logrus.Debug("Remote port is not open, looking for other options")
 	if opts.TrySSM {
 		ssmOpts := []string{"-o", `ProxyCommand='/bin/sh -c "aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"'`}
-		return executeSSHConnect(opts, instance.InstanceId, ssmOpts, debug)
+		return executeSSHConnect(opts, instance.InstanceID, ssmOpts, debug)
 	}
 
 	logrus.Debug("No other options, trying anyway")
-	return executeSSHConnect(opts, instance.Ip, nil, debug)
+	return executeSSHConnect(opts, instance.IP, nil, debug)
 }
 
 func executeSSHConnect(opts sawsh.SSHOptions, hostname string, options []string, debug bool) error {

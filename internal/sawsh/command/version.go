@@ -3,7 +3,7 @@ package command
 import (
 	"fmt"
 
-	"github.com/NoUseFreak/go-vembed"
+	vembed "github.com/NoUseFreak/go-vembed"
 )
 
 func init() {

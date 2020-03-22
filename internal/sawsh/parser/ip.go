@@ -10,7 +10,7 @@ import (
 func ipParser(cmd *cobra.Command, hostname string) (*sawsh.Instance, error) {
 	if net.ParseIP(hostname) != nil {
 		return &sawsh.Instance{
-			Ip: hostname,
+			IP: hostname,
 		}, nil
 	}
 

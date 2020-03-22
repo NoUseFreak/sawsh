@@ -15,7 +15,7 @@ func hostnameParser(cmd *cobra.Command, hostname string) (*sawsh.Instance, error
 	}
 
 	return &sawsh.Instance{
-		Ip: h,
+		IP: h,
 	}, nil
 }
 
