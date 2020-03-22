@@ -4,6 +4,7 @@ go:
 - stable
 deploy:
 - provider: script
+  skip_cleanup: true
   script: bash scripts/release.sh
   on:
     repo: NoUseFreak/sawsh
