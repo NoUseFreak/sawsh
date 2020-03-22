@@ -16,11 +16,11 @@ func TestFindTag(t *testing.T) {
 		{"Fake", ""},
 	}
 	tags := []*ec2.Tag{
-		&ec2.Tag{
+		{
 			Key:   aws.String("Name"),
 			Value: aws.String("Name Value"),
 		},
-		&ec2.Tag{
+		{
 			Key:   aws.String("Environment"),
 			Value: aws.String("Production"),
 		},
