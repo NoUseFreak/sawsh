@@ -68,7 +68,13 @@ Use "sawsh [command] --help" for more information about a command.
 Download the latest [release](https://github.com/NoUseFreak/sawsh/releases).
 
 ```bash
-curl -sL http://bit.ly/get-sawsh | bash
+brew install nousefreak/brew/sawsh
+```
+
+or using curl
+
+```bash
+curl -sL http://bit.ly/gh-get | PROJECT=NoUseFreak/sawsh bash
 ```
 
 ### Build from source
